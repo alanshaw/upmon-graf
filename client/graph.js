@@ -34,9 +34,11 @@ exports.create = function (container, opts, cb) {
     },
     tooltip: {
       formatter: function () {
+        var statusStyle = this.point.status == 200 ? '' : 'style="color:red;"'
         return '<b>' + this.series.name + '</b><br/>' +
           Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-          Highcharts.numberFormat(this.y, 2)
+          'Status: <b' + statusStyle + '>' + this.point.status + '</b><br/>' +
+          'RTT: <b>' + Highcharts.numberFormat(this.y, 0) + 'ms</b>'
       }
     },
     legend: {enabled: true},

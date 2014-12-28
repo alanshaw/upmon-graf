@@ -5,8 +5,8 @@
   "main": "upmon-graf.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "browserify": "browserify client/main.js -o client/bundle.js",
-    "watchify": "watchify client/main.js -o client/bundle.js"
+    "browserify": "browserify client/main.js -v -o client/bundle.js",
+    "watchify": "watchify client/main.js -v -o client/bundle.js"
   },
   "keywords": [
     "upmon",

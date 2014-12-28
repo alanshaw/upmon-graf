@@ -22,15 +22,29 @@ graph.create('#container', {}, function (er, chart) {
       data.x = data.timestamp
       data.y = data.rtt
 
-      if (series[data.url]) {
-        var shift = series[data.url].data.length > 20
-        return series[data.url].addPoint(data, false, shift)
+      var s = series[data.url]
+
+      if (!s) {
+        return series[data.url] = chart.addSeries({
+          name: urlToName(data.url),
+          data: [data]
+        })
       }
 
-      series[data.url] = chart.addSeries({
-        name: urlToName(data.url),
-        data: [data]
-      })
+      if (data.status == 200) {
+        if (s.options.color == 'red') {
+          s.options.color = s.options._upmonColorOrig
+          s.update(s.options)
+        }
+      } else {
+        if (s.options.color != 'red') {
+          s.options._upmonColorOrig = s.color
+          s.options.color = 'red'
+          s.update(s.options)
+        }
+      }
+
+      s.addPoint(data, false, s.data.length > 20)
     })
 
   setInterval(function () {
