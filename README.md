@@ -6,7 +6,7 @@ Graph [upmon](https://github.com/alanshaw/upmon) output.
 
 ## Usage
 
-```
+```sh
 npm install -g upmon upmon-graf
 # (Configure upmon with services to ping)
 upmon | upmon-graf
