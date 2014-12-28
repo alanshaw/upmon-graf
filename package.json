@@ -1,6 +1,6 @@
 {
   "name": "upmon-graf",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Graph upmon output",
   "main": "upmon-graf.js",
   "scripts": {
