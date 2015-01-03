@@ -1,2 +1,4 @@
 #!/usr/bin/env node
-require('../')
+var graf = require('../')
+
+process.stdin.pipe(graf()).pipe(process.stdout)
