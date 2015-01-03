@@ -31,5 +31,13 @@
   "devDependencies": {
     "browserify": "^8.0.2",
     "watchify": "^2.2.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alanshaw/upmon-graf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alanshaw/upmon-graf/issues"
+  },
+  "homepage": "https://github.com/alanshaw/upmon-graf"
 }
