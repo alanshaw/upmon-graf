@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "browserify": "browserify client/main.js -v -o client/bundle.js",
-    "watchify": "watchify client/main.js -v -o client/bundle.js"
+    "watchify": "watchify client/main.js -v -o client/bundle.js",
+    "postinstall": "browserify client/main.js -o client/bundle.js"
   },
   "keywords": [
     "upmon",
@@ -18,6 +19,7 @@
   "author": "Alan Shaw",
   "license": "ISC",
   "dependencies": {
+    "browserify": "^8.0.2",
     "JSONStream": "^0.10.0",
     "ecstatic": "^0.5.8",
     "rc": "^0.5.4",
@@ -29,7 +31,6 @@
     "upmon-graf": "bin/upmon-graf.js"
   },
   "devDependencies": {
-    "browserify": "^8.0.2",
     "watchify": "^2.2.1"
   },
   "repository": {
