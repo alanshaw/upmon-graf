@@ -19,10 +19,11 @@
   "author": "Alan Shaw",
   "license": "ISC",
   "dependencies": {
-    "browserify": "^8.0.2",
     "JSONStream": "^0.10.0",
+    "browserify": "^8.0.2",
     "ecstatic": "^0.5.8",
     "rc": "^0.5.4",
+    "reconnect-core": "^0.2.1",
     "shoe": "0.0.15",
     "through2": "^0.6.3",
     "xtend": "^4.0.0"

@@ -1,4 +1,5 @@
 var shoe = require('shoe')
+var inject = require('reconnect-core')
 var JSONStream = require('JSONStream')
 var graph = require('./graph')
 
@@ -14,38 +15,44 @@ graph.create('#container', {}, function (er, chart) {
   var series = {}
   var pointAdded = false
 
-  shoe('/sock')
-    .pipe(JSONStream.parse())
-    .on('data', function (data) {
-      pointAdded = true
+  var reconnect = inject(function () {
+    return shoe.apply(null, arguments)
+  })
 
-      data.x = data.timestamp
-      data.y = data.rtt
+  reconnect(function (stream) {
+    stream.pipe(JSONStream.parse()).on('data', onData)
+  }).connect('/sock')
 
-      var s = series[data.url]
+  function onData (data) {
+    pointAdded = true
 
-      if (!s) {
-        return series[data.url] = chart.addSeries({
-          name: urlToName(data.url),
-          data: [data]
-        })
+    data.x = data.timestamp
+    data.y = data.rtt
+
+    var s = series[data.url]
+
+    if (!s) {
+      return series[data.url] = chart.addSeries({
+        name: urlToName(data.url),
+        data: [data]
+      })
+    }
+
+    if (data.status == 200) {
+      if (s.options.color == 'red') {
+        s.options.color = s.options._upmonColorOrig
+        s.update(s.options)
       }
-
-      if (data.status == 200) {
-        if (s.options.color == 'red') {
-          s.options.color = s.options._upmonColorOrig
-          s.update(s.options)
-        }
-      } else {
-        if (s.options.color != 'red') {
-          s.options._upmonColorOrig = s.color
-          s.options.color = 'red'
-          s.update(s.options)
-        }
+    } else {
+      if (s.options.color != 'red') {
+        s.options._upmonColorOrig = s.color
+        s.options.color = 'red'
+        s.update(s.options)
       }
+    }
 
-      s.addPoint(data, false, s.data.length > 20)
-    })
+    s.addPoint(data, false, s.data.length > 20)
+  }
 
   setInterval(function () {
     if (pointAdded) {
