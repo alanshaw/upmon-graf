@@ -3,6 +3,8 @@ var inject = require('reconnect-core')
 var JSONStream = require('JSONStream')
 var graph = require('./graph')
 
+require('./theme')
+
 function urlToName (url) {
   url = url.replace(/^https?:\/\//, '')
   url = url[url.length - 1] == '/' ? url.slice(0, -1) : url
@@ -42,12 +44,14 @@ graph.create('#container', {}, function (er, chart) {
       if (s.options.color == 'red') {
         s.options.color = s.options._upmonColorOrig
         s.update(s.options)
+        s.legendItem.css({color: Highcharts.theme.legend.itemStyle.color})
       }
     } else {
       if (s.options.color != 'red') {
         s.options._upmonColorOrig = s.color
         s.options.color = 'red'
         s.update(s.options)
+        s.legendItem.css({color: 'red'})
       }
     }
 
